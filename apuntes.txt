@@ -1,0 +1,205 @@
+Apuntes Proyecto Blog con Django
+
+60 - CREANDO UN NUEVO PROYECTO
+
+-Creando entorno virtual
+python - m venv ./envs/blog
+
+-Iniciar entorno virtual
+cd envs/blog/Scripts/.activate
+
+-Instalar django
+pip install django
+
+-Crear nueva aplicacion de django
+django-admin startproject blog
+
+-Entrar a carpeta blog y levantar la app
+python manage.py runserver
+
+
+61 - CREANDO Y HACIENDO OVERRRIDE DEL USUARIO
+
+-borrar bd
+-crear nueva aplicacion
+python manage.py startapp users
+
+-Installar nueva app en el pryecto (users)
+-Crear modelo de users en models.py
+-Agregar modelo usuario en admin.py
+-Decirle al proyecto que los usuarios se controlaran desde la app users en seetings.py
+-Crear migraciones del usuario
+python manage.py makegrations
+python manage.py migrate
+-Crear super user en django
+python manage.py createsuperuser
+	-Credenciales:
+	Username: graciany
+	Email: graciany@gmail.com
+	Password: 12345
+-Que inicie sesion con el email y password(cambiarlo en models.py -> User() )
+es importante que la creacion del superuser sea antes de modificar el email o dara error
+
+62 - INSTALANDO DJANGO REST FRAMEWORK
+para generar api rest
+
+-Instalar django rest framework
+pip install djangorestframework
+
+-Agregar libreria a app instaladas
+
+63 - GENERANDO LA DOCUMENTACION DE LA API
+
+-Instalar dependencia para generar la documentacion
+(https://drf-yasg.readthedocs.io/en/stable/readme.html#usage)
+pip install drf-yasg
+-agregar a settings.py
+-Leer documentacion y seguir los pasos 
+-Generar los staticos porque pueden ser necesario(en settings)
+-Ejecutar comando
+python manage.py collectstatic
+
+64 - REGISTRO DE USUARIOS
+
+-Crear carpeta api dentro de carpeta users
+-Crear ficheros: __init__.py, views.py, serializers.py, router.py
+
+
+65 - LOGICA PARA REGISTRAR LOS USUARIOS
+-Ir a fichero serializers.py y trabajar ahi para registrar los usuarios
+-crear serializador para registrar usuarios
+
+66 - ENCRIPTAR PASSWORD 
+-ir a serializer y hacer override del metodo create
+importante: Django se encarga por si mismo para encriptar la password
+
+67 - LOGIN CON JWT
+https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html
+-Instalar jwt
+pip install djangorestframework-simplejwt
+
+-agregarlo a la configuracion en seetings.py
+-Agregar url a router
+
+
+68 - OBTENIENDO LOS DATOS DEL USUARIO LOGEADO
+-crear una nueva vista en la carpeta api fichero view
+-crear el serializador
+
+69 - ACTUALIZANDO DATOS DEL USUARIO 
+-hacer override del metodo put
+-crear el serializador
+
+70 - CREANDO EL MODELO PARA LAS CATEGORIAS
+-crear nueva app para las categorias
+python manage.py startapp categories
+-agregarla a settings
+-crear el modelo en models 
+-definirlo en el fichero admin.py
+
+71 - CREANDO EL CRUD CATEGORY
+-crear nueva carpeta llamada api, y dentro un fichero llamado __init__.py 
+-crear vistas, fichero views.py
+-crear fichero serializer
+-crear sistema de rutas
+
+72 - PROBANDO TODOS LOS ENDPOINTS DE CATEGORY
+-Probar los endpoint con insomnia y ayuda de la documentacion
+
+73 - AGREGANDO PERMISOS A LOS ENDPOINT DE CATEGORY
+-crear fichero permissions.py
+
+74 - VARIABLES DE ENTORNO DE INSOMNIA 
+-manage environments
+
+
+75 - CAMBIAR LA BUSQUEDA DE POST DE ID A SLUG
+-modificarlo en el fichero views.py de la carpeta api
+
+76 - FILTRANDO CON DJANGO_FILTER Y FILTROS INTERNOS
+- ir a fichero view.py 
+
+Usar django filter
+-Para esto instalamos el paquete
+pip install django-filter
+-Agregar a settings
+
+77 - CREANDO LA APP POST Y EL MODELO
+-crear nueva app
+python manage.py startapp posts
+C
+-crear modelo
+-definirlo en el fichero admin.py
+-instalar pillow para abrir archivos de formato imagen
+python -m pip install Pillow
+-hacer las migraciones
+ python manage.py makemigrations
+ python manage.py migrate
+
+78 - CREANDO EL CRUD DE REGISTRO
+-agregar carpeta api dentro de carpeta posts
+-agregar fichero __init__.py, view.py
+-crear serializador
+-crear fichero de rutas
+
+79 - AGREGANDO PERMISOS A LOS POSTS
+-crear fichero permisions 
+-agregarlo a views para que solo admin puedan editar
+
+80 - OBTENIENDO TODA LA INFORMACION DEL USUARIO DEL POST
+-ir a fichero serializer
+-importar serializador del usuario y agregarlo 
+
+81 - OBTENIENDO TODA LA INFORMACION DE LA CATEGORIA POST
+-ir a view e importar django filters 
+-hacer las modificaciones
+
+82 - OBTENER TODOS LOS POSTS DE UNA CATEGORIA
+-modificar el fichero view y aplicar los filtros de django 
+
+83 - CREANDO LA APP COMENTARIOS
+-crear app llamada comments
+python manage.py startapp comments
+-agregarla a settings
+
+84 - CREANDO EL MODELO DE LOS COMENTARIOS
+-crear el modelo en el fichero models
+-hacer migraciones
+python manage.py makemigrations
+python manage.py migrate
+-para que aparezca en el tablero del administrador hay que agregar la tabla al fichero admin.py
+
+85 - CREANDO EL CRUD COMENTARIOS
+-crear carpeta api
+-crear fichero __init__.py, views.py, serializers.py, router.py
+-crear las vistas, crear serializador e importarlo a la vista
+-crear la ruta y agregarla al sistema de ruta principal
+
+86 - SISTEMA DE ORDEN
+-ver comentarios en insomnia
+-oredenar comentarios del mas nuevo al mas antiguo, esto con los filtro de rest_framework
+
+87 - OBTENIENDO LOS COMENTARIOS DE UN POST
+-obtener todos los comentarios de un post
+-agregar un filtro para obtenerlo mediante el id
+
+88- SISTEMA DE PERMISOS PARA LOS COMENTARIOS
+-sistema de permisos personalizados, pera que solo propietarios del post puedan hacer crud
+-crear fichero permissions.py
+
+89 - GERENERANDO LOS REQUIREMENTS
+ pip freeze > requirements.txt
+
+90 - PREPARANDO EL PROYECTO PARA EL DESPLIEGUE
+-Crear fichero requirements.txt, runtime.txt, Procfile 
+-Instalar gunicorn
+pip install gunicorn
+-generar denuevo los requirements
+ pip freeze > requirements.txt
+
+91 - CREANDO UN NUEVO PROYECTO EN HEROKU
+-crear nueva app en heroku
+-descargar cli y seguir los pasos
+
+
+
